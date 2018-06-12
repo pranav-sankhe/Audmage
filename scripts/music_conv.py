@@ -17,15 +17,15 @@ def audio_fft():
 rate, data = wav.read('mond_1.wav')
 #print data[0,:]
 chunk = data[:,0]
-kernel = [1,0,1]
+kernel = [-2,0,-2]
 conv1 = np.convolve(chunk, kernel)
 
 chunk = data[:,1]
-kernel = [1,0,1]
+kernel = [-2,0,-2]
 conv2 = np.convolve(chunk, kernel)
 conv = np.hstack((conv1, conv2))
-
 conv = conv.astype(np.float32)
+conv = conv/10000
 write('conv.wav', 44100, conv)
 
 
