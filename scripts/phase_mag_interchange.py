@@ -25,7 +25,7 @@ def polar2z(r,theta):
 
 def audio_fft():
 
-	rate, data = wav.read('31beethovens3a.wav')
+	rate, data = wav.read('/Users/sankhe/Documents/projects/Perceived-Music-Information-Retrieval/audio/full.v1/S22_Harry Potter Theme.wav')
 	fft_out = fft(data)
 	signs = data/np.absolute(data)
 	return [fft_out, signs]
