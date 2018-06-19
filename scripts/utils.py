@@ -151,3 +151,16 @@ def spectrogram(y, hop_length, sr, plotFlag):
 
 
 
+def cepstral_analysis(y, sr, plotFlag):
+    sp = np.fft.fft(y)
+    
+    freq = np.fft.fftfreq(y.shape[-1])
+    mag = np.sqrt( np.square(sp.real) + np.square(sp.imag))
+    mag = mag[0:y.shape[-1]/2 ]
+    freq = freq[0:y.shape[-1]/2] 
+
+    mag = np.log(mag)
+    s = np.fft.ifft(mag)
+    s = np.sqrt( np.square(s.real) + np.square(s.imag))
+    plt.plot(s)
+    plt.show()

@@ -1,5 +1,9 @@
 # Reference Links
 
+
+## Feature Extraction 
+
+- Spectrogram, Cepstrum and Mel-Frequency Analysis: [Click Here](http://www.speech.cs.cmu.edu/15-492/slides/03_mfcc.pdf)
 - Wiki Link of lib PuAudioAnalysis: [Click here](https://github.com/tyiannak/pyAudioAnalysis/wiki/3.-Feature-Extraction)
 - Tips for classification of audio: [Click here](http://www.nyu.edu/classes/bello/ACA_files/8-classification.pdf)
 - MIR PPT focusing on Feature Extraction, Evaluation, Applications: [Click here](http://www.ifs.tuwien.ac.at/~schindler/lectures/IR_VU_SS2010-MIR_pt2-TL%20(Alex)%202013.pdf)
