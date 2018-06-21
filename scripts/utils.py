@@ -160,23 +160,55 @@ def mfcc(y,sr, n_mfcc,plotFlag):
         plt.show()
 
 
-def spectrogram(y, hop_length, sr, plotFlag):
+def spectrogram(y, hop_length, sr, plotFlag,flag_hp):
 
 
     write('../test_audio/fut.wav', sr, y)      #write file under test
-    D = librosa.stft(y, hop_length=hop_length)
-    #D_left = librosa.stft(y, center=False)
+    if flag_hp:
+        y_harm, y_perc = librosa.effects.hpss(y)
+        write('../test_audio/fut__hamonic_comp.wav', sr, y_harm)
+        write('../test_audio/fut_percussive_comp.wav', sr, y_perc)
 
-    #D_short = librosa.stft(y, hop_length=64)
-    if plotFlag:
+        D_harm = librosa.stft(y_harm, hop_length=hop_length)
+        D_perc = librosa.stft(y_perc, hop_length=hop_length)
+
+    
+        plt.subplot(211)    
+        librosa.display.specshow(librosa.amplitude_to_db(D_harm,
+                                                       ref=np.max),
+                               y_axis='log', x_axis='time')
+        plt.title('Harmonic')    
+        #plt.title('Turkish March:Power spectrogram of harmonic component: First ' + str(len(y)) + ' iterations' + ' with hopsize = ' + str(hop_length))
+        plt.colorbar(format='%+2.0f dB')
+        plt.tight_layout()            
+
+        plt.subplot(212)
+        librosa.display.specshow(librosa.amplitude_to_db(D_perc,
+                                                       ref=np.max),
+                               y_axis='log', x_axis='time')
+        plt.title('Percussion')
+        #plt.title('Turkish March:Power spectrogram of percussive component: First ' + str(len(y)) + ' iterations' + ' with hopsize = ' + str(hop_length))
+        plt.colorbar(format='%+2.0f dB')
+        plt.tight_layout()
+        pylab.savefig('../results/TurkishMarch_200000i_harm_perc_spectogram.png')
+        if plotFlag:
+            plt.show()
+
+    else:        
+        D = librosa.stft(y, hop_length=hop_length)
+        #D_left = librosa.stft(y, center=False)
+
+        #D_short = librosa.stft(y, hop_length=64)
+
         librosa.display.specshow(librosa.amplitude_to_db(D,
                                                        ref=np.max),
                                y_axis='log', x_axis='time')
         plt.title('Turkish March:Power spectrogram: First ' + str(len(y)) + ' iterations' + ' with hopsize = ' + str(hop_length))
         plt.colorbar(format='%+2.0f dB')
+        pylab.savefig('../results/TurkishMarch_200000i_spectogram.png')
         plt.tight_layout()
-         
-        plt.show()
+        if plotFlag:             
+            plt.show()
 
 
 
