@@ -15,13 +15,13 @@ y= y[80000:]
 # utils.spectrogram(y, hop_length, sr, plotFlag=False,flag_hp=False, save_flag=True, filename=filename)
 n_mels = 128
 # utils.mfcc(y, sr, n_mels, plotFlag=False, save_flag=True, filename=filename)
-# utils.plotTimeSeries(y,sr, downsampleF=1, flag_hp=True, plotFlag=False, save_flag=True, filename=filename)
+utils.plotTimeSeries(y,sr, downsampleF=1, flag_hp=True, plotFlag=True, save_flag=True, filename=filename)
 # r, _ =  utils.zero_crossing(y,sr)
 # print utils.spectral_centroid(y,sr)
 # utils.plotSpectrum(y,sr, flag_hp=True, plotFlag=False, save_flag=True,  filename=filename)
 # # utils.cepstral_analysis(y, sr, plotFlag=True)
 # print utils.getPitch(y,sr)
-freq, max_freq, min_freq = utils.getFreq(y,sr)
+# freq, max_freq, min_freq = utils.getFreq(y,sr)
 # utils.melSpectrogram(y, sr, n_mels, max_freq, plotFlag=True,flag_hp=False, save_flag=True, filename=filename)
 
 # length = len(y)
@@ -35,22 +35,3 @@ freq, max_freq, min_freq = utils.getFreq(y,sr)
 # 		utils.melSpectrogram(l[i], sr, n_mels, max_freq, plotFlag=False,flag_hp=False, save_flag=True, filename= 'poem/' + filename + str(i))
 
 
-
-import cv2
- 
-image_folder = '../results/poem/'
-video_name = 'video.avi'
-
-images = [img for img in os.listdir(image_folder) if img.endswith(".png")]
-frame = cv2.imread(os.path.join(image_folder, images[0]))
-height, width, layers = frame.shape
-fps = len(images)
-fps = 10
-fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-video = cv2.VideoWriter(video_name, fourcc, fps, (width,height))
-
-for image in images:
-    video.write(cv2.imread(os.path.join(image_folder, image)))
-
-cv2.destroyAllWindows()
-video.release()

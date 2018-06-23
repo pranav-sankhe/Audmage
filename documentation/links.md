@@ -12,3 +12,4 @@
 - Stanford's workshop on MIR: [Click Here](https://github.com/sabSAThai/stanford-mir)
 - Google's patented technique for audio feature extraction: [Click here](https://patentimages.storage.googleapis.com/34/0e/d1/9a54c7528cf8ad/US7091409.pdf)
 - Urban Sound Classification: [Part 1](http://aqibsaeed.github.io/2016-09-03-urban-sound-classification-part-1/), [Part 2](http://aqibsaeed.github.io/2016-09-24-urban-sound-classification-part-2/), [GitHub](https://github.com/aqibsaeed/Urban-Sound-Classification) 
+- Cepstrum Analysis [Click Here](http://research.cs.tamu.edu/prism/lectures/sp/l9.pdf)
