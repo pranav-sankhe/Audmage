@@ -1,4 +1,3 @@
-
 import collections
 import os
 import glob
@@ -15,17 +14,11 @@ from scipy import stats, signal
 from scipy.signal                 import lfilter, hamming
 from scipy.fftpack.realtransforms import dct
 
-from scikits.talkbox              import segment_axis
-from scikits.talkbox.features     import mfcc
-
 from matplotlib.pyplot import figure
 from matplotlib import pyplot as plt
 import pylab
-from IPython.display              import HTML
-from base64                       import b64encode
 
 import librosa
-import librosa.display
 
 from sklearn.preprocessing import StandardScaler
 from sklearn import svm
@@ -34,6 +27,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
+import librosa.display
 
 import warnings
 warnings.filterwarnings('ignore')
@@ -70,7 +64,7 @@ class ZoomPan:
             else:
                 # deal with something that should never happen
                 scale_factor = 1
-                print event.button
+                print(event.button)
 
             new_width = (cur_xlim[1] - cur_xlim[0]) * scale_factor
             new_height = (cur_ylim[1] - cur_ylim[0]) * scale_factor
@@ -268,7 +262,8 @@ def getPitch(y,sr):
     sp = np.fft.fft(y)
     
     freq = np.fft.fftfreq(y.shape[-1])
-    freq = freq[0:y.shape[-1]/2] 
+    half = int(y.shape[-1]/2)
+    freq = freq[0:half] 
     freqHz = freq * sr    
     pitch = 69 + 12*np.log2(freqHz/440.0) 
     print("Using the MIDI standard to map frequency to pitch")
@@ -278,9 +273,9 @@ def getPitch(y,sr):
 
 def getFreq(y,sr):
     sp = np.fft.fft(y)
-    
     freq = np.fft.fftfreq(y.shape[-1])
-    freq = freq[0:y.shape[-1]/2] 
+    half = int(y.shape[-1]/2)
+    freq = freq[0:half] 
     freqHz = freq * sr    
     return freqHz, np.max(freqHz), np.min(freqHz)
 
@@ -297,9 +292,9 @@ def spectral_centroid(y,sr):
     
     freq = np.fft.fftfreq(y.shape[-1])
     mag = np.abs(sp)
-
-    mag = mag[0:y.shape[-1]/2]
-    freq = freq[0:y.shape[-1]/2]     
+    half = int(y.shape[-1]/2)
+    mag = mag[0:half]
+    freq = freq[0:half]     
     
     freqHz = freq * sr
 
@@ -361,8 +356,9 @@ def plotSpectrum(y,sr,flag_hp, plotFlag, save_flag, filename):
         
         freq = np.fft.fftfreq(y_harm.shape[-1])
         mag = np.abs(sp)
-        mag = mag[0:y.shape[-1]/2 ]
-        freq = freq[0:y.shape[-1]/2] 
+        half = int(y.shape[-1]/2)
+        mag = mag[0:half]
+        freq = freq[0:half] 
         freqHz = freq * sr
 
         fig = figure()
@@ -384,8 +380,9 @@ def plotSpectrum(y,sr,flag_hp, plotFlag, save_flag, filename):
         
         freq = np.fft.fftfreq(y_perc.shape[-1])
         mag = np.abs(sp)
-        mag = mag[0:y.shape[-1]/2 ]
-        freq = freq[0:y.shape[-1]/2] 
+        half = int(y.shape[-1]/2)
+        mag = mag[0:half ]
+        freq = freq[0:half] 
         freqHz = freq * sr
 
         fig = figure()
@@ -410,8 +407,9 @@ def plotSpectrum(y,sr,flag_hp, plotFlag, save_flag, filename):
         
         freq = np.fft.fftfreq(y.shape[-1])
         mag = np.abs(sp)
-        mag = mag[0:y.shape[-1]/2 ]
-        freq = freq[0:y.shape[-1]/2] 
+        half = int(y.shape[-1]/2)
+        mag = mag[0:half ]
+        freq = freq[0:half] 
         freqHz = freq * sr
 
         fig = figure()
@@ -439,8 +437,9 @@ def cepstral_analysis(y, sr, plotFlag):
     
     freq = np.fft.fftfreq(y.shape[-1])
     mag = np.abs(sp)
-    mag = mag[0:y.shape[-1]/2 ]
-    freq = freq[0:y.shape[-1]/2] 
+    half = int(y.shape[-1]/2)
+    mag = mag[0:half ]
+    freq = freq[0:half] 
 
     mag = np.log(mag)
     freqHz = freq * sr    

@@ -32,3 +32,4 @@
 - openEdu Course: [Click Here](http://www.open.edu/openlearn/ocw/mod/oucontent/view.php?id=2577&printable=1)
 - Audio Encoders Paper _Stanford_ [Click Here](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.142.5692&rep=rep1&type=pdf)
 - Audio Encoder Paper _Microsoft_ [Click Here](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.84.2230&rep=rep1&type=pdf) 
+- Cepstrum Analysis [Click Here](http://research.cs.tamu.edu/prism/lectures/sp/l9.pdf)
