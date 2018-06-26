@@ -32,6 +32,8 @@ import librosa.display
 import warnings
 warnings.filterwarnings('ignore')
 
+import math
+from scipy.signal import hamming  
 
 
 class ZoomPan:
@@ -433,19 +435,11 @@ def plotSpectrum(y,sr,flag_hp, plotFlag, save_flag, filename):
 
 
 def cepstral_analysis(y, sr, plotFlag):
-    sp = np.fft.fft(y)
+
     
-    freq = np.fft.fftfreq(y.shape[-1])
-    mag = np.abs(sp)
-    half = int(y.shape[-1]/2)
-    mag = mag[0:half ]
-    freq = freq[0:half] 
-
-    mag = np.log(mag)
-    freqHz = freq * sr    
-    plt.plot(freqHz, mag)
-    # s = np.fft.ifft(mag)
-    # s = np.abs(s)
-    # plt.plot(s)
+    fftResult=np.log(abs(fft(y)));
+    ceps=ifft(fftResult);
+    plt.plot(ceps)
+    posmax = ceps.argmax();
+    print posmax
     plt.show()
-
