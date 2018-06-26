@@ -443,8 +443,10 @@ def cepstral_analysis(y, sr, plotFlag):
     freq = freq[0:y.shape[-1]/2] 
 
     mag = np.log(mag)
-    s = np.fft.ifft(mag)
-    s = np.abs(s)
-    plt.plot(s)
+    freqHz = freq * sr    
+    plt.plot(freqHz, mag)
+    # s = np.fft.ifft(mag)
+    # s = np.abs(s)
+    # plt.plot(s)
     plt.show()
 
