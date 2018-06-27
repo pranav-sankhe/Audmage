@@ -427,7 +427,7 @@ def plotSpectrum(y,sr,flag_hp, plotFlag, save_flag, filename):
         figPan = zp.pan_factory(ax)
         ax.legend()
         if save_flag:
-            pylab.savefig('../results/' + filename + '_' + str(len(y)) + 'i_' + 'Pspectrum.png')
+            pylab.savefig('../results/' + filename + '_' + str(len(y)) + 'i_' + 'spectrum.png')
         if plotFlag:
             plt.show()
 
@@ -475,6 +475,7 @@ def lpf(y, sr, order, fs, cutoff, freq_resp_plot, plotFlag):
         plt.title("Lowpass Filter Frequency Response")
         plt.xlabel('Frequency [Hz]')
         plt.grid()
+        pylab.savefig('freq_response.png')
 
 
 
@@ -487,6 +488,7 @@ def lpf(y, sr, order, fs, cutoff, freq_resp_plot, plotFlag):
     plt.xlabel('Time [sec]')
     plt.grid()
     plt.legend()
+    pylab.savefig('fitered.png')
     if plotFlag:
         plt.show()
 
@@ -497,6 +499,15 @@ def lpf(y, sr, order, fs, cutoff, freq_resp_plot, plotFlag):
 def cepstral_analysis(y, sr, plotFlag):
 
     logfft = np.log(fft(y))
+    freq = np.fft.fftfreq(y.shape[-1])
+
     ceps = ifft(logfft)
+    if plotFlag:
+        figure()
+        plt.plot(freq*sr, np.abs(logfft))
+        pylab.savefig('logfft.png')
+        figure()
+        plt.plot(ceps)
+        pylab.savefig('ceps.png')
     
     return ceps
