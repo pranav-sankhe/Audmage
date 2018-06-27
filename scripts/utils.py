@@ -13,6 +13,8 @@ from scipy import signal
 from scipy import stats, signal
 from scipy.signal                 import lfilter, hamming
 from scipy.fftpack.realtransforms import dct
+from scipy.signal import butter, lfilter, freqz
+
 
 from matplotlib.pyplot import figure
 from matplotlib import pyplot as plt
@@ -33,8 +35,6 @@ import warnings
 warnings.filterwarnings('ignore')
 
 import math
-from scipy.signal import hamming  
-
 
 class ZoomPan:
     def __init__(self):
@@ -406,7 +406,7 @@ def plotSpectrum(y,sr,flag_hp, plotFlag, save_flag, filename):
 
     else: 
         sp = np.fft.fft(y)
-        
+
         freq = np.fft.fftfreq(y.shape[-1])
         mag = np.abs(sp)
         half = int(y.shape[-1]/2)
@@ -418,8 +418,8 @@ def plotSpectrum(y,sr,flag_hp, plotFlag, save_flag, filename):
         ax = fig.add_subplot(111, autoscale_on=True)
 
         ax.set_title('Spectrum of ' + filename)
-        ax.set_xlabel('Maginitude')
-        ax.set_ylabel('Frequency [in hertz]')
+        ax.set_ylabel('Magnitude')
+        ax.set_xlabel('Frequency [in hertz]')
         ax.plot(freqHz, mag)
         scale = 1.1
         zp = ZoomPan()
@@ -433,13 +433,70 @@ def plotSpectrum(y,sr,flag_hp, plotFlag, save_flag, filename):
 
 
 
+def butter_lowpass(cutoff, fs, order=5):
+    nyq = 0.5 * fs
+    normal_cutoff = cutoff / nyq
+    b, a = butter(order, normal_cutoff, btype='low', analog=False)
+    return b, a
+
+def butter_lowpass_filter(data, cutoff, fs, order=5):
+    b, a = butter_lowpass(cutoff, fs, order=order)
+    y = lfilter(b, a, data)
+
+    return y
+
+'''
+Useful comments: 
+
+-The Nyquist frequency is half the sampling rate.
+
+-You are working with regularly sampled data, so you want a digital filter, not an analog filter. 
+This means you should not use analog=True in the call to butter, and you should use scipy.signal.freqz (not freqs) to generate the frequency response.
+
+-One goal of those short utility functions is to allow you to leave all your frequencies expressed in Hz.
+As long as you express your frequencies with consistent units, the scaling in the utility functions takes care of the normalization for you.
+
+'''
+
+
+
+def lpf(y, sr, order, fs, cutoff, freq_resp_plot, plotFlag):
+
+    if freq_resp_plot:    
+        # Get the filter coefficients so we can check its frequency response.
+        b, a = butter_lowpass(cutoff, fs, order)
+        # Plot the frequency response.
+        w, h = freqz(b, a, worN=8000)
+        # plt.subplot(2, 1, 1)
+        plt.plot(0.5*fs*w/np.pi, np.abs(h), 'b')
+        plt.plot(cutoff, 0.5*np.sqrt(2), 'ko')
+        plt.axvline(cutoff, color='k')
+        plt.xlim(0, 0.5*fs)
+        plt.title("Lowpass Filter Frequency Response")
+        plt.xlabel('Frequency [Hz]')
+        plt.grid()
+
+
+
+    y_filtered = butter_lowpass_filter(y, cutoff, fs, order)
+    figure()
+    # plt.subplot(2, 1, 2)
+    plt.plot(y, 'b-', label='data')
+    figure()
+    plt.plot(y_filtered, 'g-', linewidth=2, label='filtered data')
+    plt.xlabel('Time [sec]')
+    plt.grid()
+    plt.legend()
+    if plotFlag:
+        plt.show()
+
+    return y_filtered    
+
+
 
 def cepstral_analysis(y, sr, plotFlag):
 
+    logfft = np.log(fft(y))
+    ceps = ifft(logfft)
     
-    fftResult=np.log(abs(fft(y)));
-    ceps=ifft(fftResult);
-    plt.plot(ceps)
-    posmax = ceps.argmax();
-    print posmax
-    plt.show()
+    return ceps
