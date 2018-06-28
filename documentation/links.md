@@ -12,7 +12,7 @@
 - Stanford's workshop on MIR: [Click Here](https://github.com/sabSAThai/stanford-mir)
 - Google's patented technique for audio feature extraction: [Click here](https://patentimages.storage.googleapis.com/34/0e/d1/9a54c7528cf8ad/US7091409.pdf)
 - Urban Sound Classification: [Part 1](http://aqibsaeed.github.io/2016-09-03-urban-sound-classification-part-1/), [Part 2](http://aqibsaeed.github.io/2016-09-24-urban-sound-classification-part-2/), [GitHub](https://github.com/aqibsaeed/Urban-Sound-Classification) 
-
+- Cepstrum Analysis [Click Here](http://research.cs.tamu.edu/prism/lectures/sp/l9.pdf)
 ## Beat Tracker
 - Survey on beak tracking technologies: [Click Here](https://musicinformationretrieval.wordpress.com/2017/02/06/audio-beat-tracking-state-of-the-art/)
 - A library that includes varius state of art implementations:  [Click Here](https://github.com/CPJKU/madmom)
@@ -32,4 +32,5 @@
 - openEdu Course: [Click Here](http://www.open.edu/openlearn/ocw/mod/oucontent/view.php?id=2577&printable=1)
 - Audio Encoders Paper _Stanford_ [Click Here](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.142.5692&rep=rep1&type=pdf)
 - Audio Encoder Paper _Microsoft_ [Click Here](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.84.2230&rep=rep1&type=pdf) 
-- Cepstrum Analysis [Click Here](http://research.cs.tamu.edu/prism/lectures/sp/l9.pdf)
+- Cochlea Models [Click here](https://github.com/mrkrd/cochlea)
+- Modeling Cochlea Mechanics [Click Here](https://www.hindawi.com/journals/bmri/2014/150637/)
