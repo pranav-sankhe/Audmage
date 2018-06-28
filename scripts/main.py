@@ -6,7 +6,7 @@ filepath = '../test_audio/440Hz_44100Hz_16bit_05sec.wav'
 
 filename = os.path.basename(filepath)
 
-y, sr = librosa.load(filepath)
+y, sr = librosa.load(filepath,sr=None) 
 # y= y[80000:]
 # y = y[0:200000]
 # hop_length = 32

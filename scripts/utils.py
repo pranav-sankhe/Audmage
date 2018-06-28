@@ -313,7 +313,7 @@ def zero_crossing(y,sr):
     return zero_crossing_rate, l         
 
 def plotTimeSeries(y,sr, downsampleF, flag_hp, plotFlag, save_flag, filename):
-    y_8k = librosa.resample(y, sr, sr/downsampleF)
+    # y_8k = librosa.resample(y, sr, sr/downsampleF)
     if flag_hp:
         y_harm, y_perc = librosa.effects.hpss(y)
         write('../test_audio/fut__hamonic_comp.wav', sr, y_harm)
