@@ -204,10 +204,6 @@ def melSpectrogram(y, sr, n_mels, max_freq, plotFlag,flag_hp, save_flag, filenam
         if plotFlag:
             plt.show()    
 
-    
-
-
-
 def spectrogram(y, hop_length, sr, plotFlag,flag_hp,save_flag, filename):
 
 
@@ -249,9 +245,7 @@ def spectrogram(y, hop_length, sr, plotFlag,flag_hp,save_flag, filename):
 
         #D_short = librosa.stft(y, hop_length=64)
 
-        librosa.display.specshow(librosa.amplitude_to_db(D,
-                                                       ref=np.max),
-                               y_axis='log', x_axis='time')
+        librosa.display.specshow(librosa.amplitude_to_db(D,ref=np.max),y_axis='log', x_axis='time')
         plt.title(filename + ':Power spectrogram: First ' + str(len(y)) + ' iterations' + ' with hopsize = ' + str(hop_length))
         plt.colorbar(format='%+2.0f dB')
         if save_flag:
